@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import Header from '../common/header/Header';
-import { Modal } from "@material-ui/core"
+import Login from './login/Login';
 
 
 let Controller = () => {
+
+    const [showLogin, setShowLogin] = useState(false)
     let loginHandler = () => {
         console.log('login clicked')
+        setShowLogin(true)
     }
 
     let logoutHandler = () => {
@@ -14,15 +17,12 @@ let Controller = () => {
 
     let registerHandler = () => {
         console.log('register clicked')
-        setOpen(true)
     }
 
-    let handleClose = () => {
-        console.log('register clicked')
-        setOpen(false)
+    let loginCloseHandler = () => {
+        console.log('login modal closed')
+        setShowLogin(false)
     }
-
-    const [open, setOpen] = React.useState(false);
 
     return (
         <div>
@@ -31,13 +31,7 @@ let Controller = () => {
                 loginAction={loginHandler}
                 logoutAction={logoutHandler}
                 registerAction={registerHandler}></Header>
-            <Modal
-                open={open}
-                onClose={handleClose}>
-                <div>
-                    <text>test box</text>
-                </div>
-            </Modal>
+            <Login open={showLogin} closeHandler={loginCloseHandler}></Login>
         </div>
 
     )
