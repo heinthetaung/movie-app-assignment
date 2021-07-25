@@ -5,9 +5,22 @@ let Controller = () => {
     let loginHandler = () => {
         console.log('login clicked')
     }
+
+    let logoutHandler = () => {
+        console.log('logout clicked')
+    }
+
+    let registerHandler = () => {
+        console.log('register clicked')
+    }
+
     return (
         <div>
-            <Header name='Login' action={loginHandler}></Header>
+            <Header name='Login'
+            access='logged-in'
+            loginAction={loginHandler}
+            logoutAction={logoutHandler}
+            registerAction={registerHandler}></Header>
         </div>
     )
 }
