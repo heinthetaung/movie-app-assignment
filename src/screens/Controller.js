@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../common/header/Header';
+import { Modal } from "@material-ui/core"
+
 
 let Controller = () => {
     let loginHandler = () => {
@@ -12,16 +14,32 @@ let Controller = () => {
 
     let registerHandler = () => {
         console.log('register clicked')
+        setOpen(true)
     }
+
+    let handleClose = () => {
+        console.log('register clicked')
+        setOpen(false)
+    }
+
+    const [open, setOpen] = React.useState(false);
 
     return (
         <div>
             <Header name='Login'
-            access='logged-in'
-            loginAction={loginHandler}
-            logoutAction={logoutHandler}
-            registerAction={registerHandler}></Header>
+                access='logged-i'
+                loginAction={loginHandler}
+                logoutAction={logoutHandler}
+                registerAction={registerHandler}></Header>
+            <Modal
+                open={open}
+                onClose={handleClose}>
+                <div>
+                    <text>test box</text>
+                </div>
+            </Modal>
         </div>
+
     )
 }
 
