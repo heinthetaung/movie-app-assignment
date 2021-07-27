@@ -30,7 +30,7 @@ let Controller = () => {
         setShowLoginRegister(true)
     }
 
-    let closeHandler = () => {
+    let modalCloseHandler = () => {
         console.log('login/register modal closed')
         setShowLoginRegister(false)
     }
@@ -44,7 +44,7 @@ let Controller = () => {
                 registerAction={registerHandler}></Header>
             <LoginRegister open={showLoginRegister}
                 value={tabValue}
-                closeHandler={closeHandler}
+                closeHandler={modalCloseHandler}
                 tabChangeHandler={tabChangeHandler}></LoginRegister>
         </div>
 
