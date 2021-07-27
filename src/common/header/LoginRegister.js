@@ -26,6 +26,17 @@ function TabPanel(props) {
     );
 }
 
+const modalStyle = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        transform: 'translate(-50%, -50%)',
+        textAlign: 'center',
+    },
+};
+
 export default function LoginRegister(props) {
     function a11yProps(index) {
         return {
@@ -36,7 +47,8 @@ export default function LoginRegister(props) {
 
     return (
         <div>
-            <Modal className='modal-container'
+            <Modal
+                style={modalStyle}
                 isOpen={props.open}
                 onRequestClose={props.closeHandler}
                 appElement={root}>
@@ -51,13 +63,13 @@ export default function LoginRegister(props) {
                 <TabPanel value={props.value} index={0}>
                     <div className='text-input'>
                         <FormControl>
-                            <InputLabel htmlFor="my-input">Username</InputLabel>
+                            <InputLabel htmlFor="my-input">Username*</InputLabel>
                             <Input id="username-input" aria-describedby="my-helper-text" />
                         </FormControl>
                     </div>
                     <div className='text-input'>
                         <FormControl>
-                            <InputLabel htmlFor="my-input">Password</InputLabel>
+                            <InputLabel htmlFor="my-input">Password*</InputLabel>
                             <Input id="password-input" aria-describedby="my-helper-text" />
                         </FormControl>
                     </div>

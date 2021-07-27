@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Header from '../common/header/Header';
-import LoginRegister from './login/LoginRegister';
+import LoginRegister from '../common/header/LoginRegister';
 
 
 let Controller = () => {
