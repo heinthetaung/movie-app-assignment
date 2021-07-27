@@ -1,25 +1,23 @@
 import React, { useState } from 'react';
 import Header from '../common/header/Header';
-import Login from './login/Login';
-import Register from './register/Register';
-
+import LoginRegister from './login/LoginRegister';
 
 
 let Controller = () => {
 
-    const [showLogin, setShowLogin] = useState(false)
-    const [showRegister, setShowRegister] = useState(false)
-    const [registerTab, setregisterTab] = React.useState(1);
+    const [showLoginRegister, setShowLoginRegister] = useState(false)
+
+    const [tabValue, setTabValue] = React.useState(0);
 
 
-    const registerTabChangeHandler = (event, newValue) => {
-        setregisterTab(newValue);
+    const tabChangeHandler = (event, newValue) => {
+        setTabValue(newValue);
     };
 
     let loginHandler = () => {
         console.log('login clicked')
-        setShowLogin(true)
-        setShowRegister(false)
+        setTabValue(0)
+        setShowLoginRegister(true)
     }
 
     let logoutHandler = () => {
@@ -28,24 +26,13 @@ let Controller = () => {
 
     let registerHandler = () => {
         console.log('register clicked')
-        setShowLogin(false)
-        setShowRegister(true)
-    }
-
-    let loginCloseHandler = () => {
-        console.log('login modal closed')
-        setShowLogin(false)
-    }
-
-    let registerCloseHandler = () => {
-        console.log('register modal closed')
-        setShowRegister(false)
+        setTabValue(1)
+        setShowLoginRegister(true)
     }
 
     let closeHandler = () => {
         console.log('login/register modal closed')
-        setShowLogin(false)
-        setShowRegister(false)
+        setShowLoginRegister(false)
     }
 
     return (
@@ -55,12 +42,10 @@ let Controller = () => {
                 loginAction={loginHandler}
                 logoutAction={logoutHandler}
                 registerAction={registerHandler}></Header>
-            <Login open={showLogin}
+            <LoginRegister open={showLoginRegister}
+                value={tabValue}
                 closeHandler={closeHandler}
-                tabChangeHandler={registerHandler}></Login>
-            <Register open={showRegister}
-                closeHandler={closeHandler}
-                tabChangeHandler={loginHandler}></Register>
+                tabChangeHandler={tabChangeHandler}></LoginRegister>
         </div>
 
     )
