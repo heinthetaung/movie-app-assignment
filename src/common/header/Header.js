@@ -1,10 +1,42 @@
-import React from 'react'
+import React, {useState} from 'react'
 import logo from '../../assets/logo.svg'
 import './Header.css';
+import LoginRegister from './LoginRegister';
 import Button from "@material-ui/core/Button";
 
 let Header = (props) => {
-    if(props.access === 'logged-in') {
+
+    const [showLoginRegister, setShowLoginRegister] = useState(false)
+
+    const [tabValue, setTabValue] = React.useState(0);
+
+
+    const tabChangeHandler = (event, newValue) => {
+        setTabValue(newValue);
+    };
+
+    let loginHandler = () => {
+        console.log('login clicked')
+        setTabValue(0)
+        setShowLoginRegister(true)
+    }
+
+    let logoutHandler = () => {
+        console.log('logout clicked')
+    }
+
+    let registerHandler = () => {
+        console.log('register clicked')
+        setTabValue(1)
+        setShowLoginRegister(true)
+    }
+
+    let modalCloseHandler = () => {
+        console.log('login/register modal closed')
+        setShowLoginRegister(false)
+    }
+
+    if (props.access === 'logged-in') {
         return (
             <div className='header'>
                 <img src={logo} alt='logo' className='movie-icon'></img >
@@ -12,7 +44,7 @@ let Header = (props) => {
                     <Button
                         variant="contained"
                         color='default'
-                        onClick={props.logoutAction}>
+                        onClick={logoutHandler}>
                         Logout
                     </Button>
                 </span>
@@ -26,7 +58,7 @@ let Header = (props) => {
                     <Button
                         variant="contained"
                         color='default'
-                        onClick={props.loginAction}>
+                        onClick={loginHandler}>
                         Login
                     </Button>
                 </span>
@@ -34,14 +66,20 @@ let Header = (props) => {
                     <Button
                         variant="contained"
                         color='default'
-                        onClick={props.registerAction}>
+                        onClick={registerHandler}>
                         Register
                     </Button>
+                </span>
+                <span>
+                    <LoginRegister open={showLoginRegister}
+                        value={tabValue}
+                        closeHandler={modalCloseHandler}
+                        tabChangeHandler={tabChangeHandler}></LoginRegister>
                 </span>
             </div>
         )
     }
-    
+
 }
 
 export default Header

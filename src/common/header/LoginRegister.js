@@ -145,7 +145,7 @@ export default function LoginRegister(props) {
                 <TabPanel value={props.value} index={0}>
 
                     <div className='text-input'>
-                        <FormControl>
+                        <FormControl required={true}>
                             <InputLabel htmlFor="my-input">Username</InputLabel>
                             <Input id="username-input" aria-describedby="my-helper-text" onChange={inputOnChangeHandler}/>
                             <FormHelperText id={requiredUserName}>required</FormHelperText>
@@ -153,7 +153,7 @@ export default function LoginRegister(props) {
                     </div>
 
                     <div className='text-input'>
-                        <FormControl>
+                        <FormControl required={true}>
                             <InputLabel htmlFor="my-input">Password</InputLabel>
                             <Input id="loginPassword-input" aria-describedby="my-helper-text" onChange={inputOnChangeHandler}/>
                             <FormHelperText id={requiredLoginPassword}>required</FormHelperText>
