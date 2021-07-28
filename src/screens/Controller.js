@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
-import Header from '../common/header/Header';
-
+import React from 'react';
+import Home from '../screens/home/Home'
 let Controller = () => {
-
     return (
         <div>
-            <Header name='Login' access='logged-i'></Header>
+            <Home></Home>
         </div>
     )
 }
