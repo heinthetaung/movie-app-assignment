@@ -19,10 +19,10 @@ let Home = () => {
 
     const [releasedMovies, setReleasedMovies] = useState({})
     const [upComingMovies, setUpComingMovies] = useState({})
+    const [genres, setGenres] = useState({})
 
     const [value, setValue] = useState(true)
-    let getMovieData = async (parameter) => {
-        const baseURL = 'http://localhost:8085/api/v1/movies'
+    let fetchData = async (baseURL, parameter = '') => {
         const url = baseURL + parameter
         try {
             let rawResponse = await fetch(url, {
@@ -40,14 +40,22 @@ let Home = () => {
 
 
     useEffect(() => {
-        getMovieData('?page=1&limit=10').then(
+        const movieBaseURL = 'http://localhost:8085/api/v1/movies'
+        const genresBaseURL = 'http://localhost:8085/api/v1/genres'
+
+        fetchData(movieBaseURL, '?page=1&limit=10').then(
             data => {
                 setUpComingMovies(data)
             }
         )
-        getMovieData('?page=2&limit=10').then(
+        fetchData(movieBaseURL, '?page=2&limit=10').then(
             data => {
                 setReleasedMovies(data)
+            }
+        )
+        fetchData(genresBaseURL).then(
+            data => {
+                setGenres(data)
             }
         )
     }, [value])
@@ -82,8 +90,10 @@ let Home = () => {
     };
 
     try {
-        if (Object.keys(releasedMovies).length !== 0 && Object.keys(upComingMovies).length !== 0) {
-            console.log(releasedMovies, upComingMovies)
+        if (Object.keys(releasedMovies).length !== 0 &&
+            Object.keys(upComingMovies).length !== 0 &&
+            Object.keys(genres).length !== 0) {
+            console.log(releasedMovies, upComingMovies, genres)
             return (
                 <div>
                     <Header name='Login' access='logged-i'></Header>
@@ -142,9 +152,9 @@ let Home = () => {
                                                 name: 'age',
                                                 id: 'age-simple',
                                             }}>
-                                                {
-                                                
-                                                }
+                                            {
+
+                                            }
                                             <MenuItem value=""><em>None</em></MenuItem>
                                             <MenuItem value={10}>Ten</MenuItem>
                                             <MenuItem value={20}>Twenty</MenuItem>
