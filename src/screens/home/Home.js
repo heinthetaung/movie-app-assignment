@@ -152,13 +152,9 @@ let Home = () => {
                                                 name: 'age',
                                                 id: 'age-simple',
                                             }}>
-                                            {
-
-                                            }
-                                            <MenuItem value=""><em>None</em></MenuItem>
-                                            <MenuItem value={10}>Ten</MenuItem>
-                                            <MenuItem value={20}>Twenty</MenuItem>
-                                            <MenuItem value={30}>Thirty</MenuItem>
+                                            {genres['genres'].map((genre) => (
+                                                <MenuItem value={genre['id']}>{genre['genre']}</MenuItem>
+                                            ))}
                                         </Select>
                                     </FormControl>
                                     <div>
