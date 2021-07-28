@@ -53,7 +53,6 @@ let Home = () => {
     try {
         if (Object.keys(movies).length !== 0) {
             console.log(movies)
-
             return (
                 <div>
                     <Header name='Login' access='logged-i'></Header>
@@ -65,7 +64,7 @@ let Home = () => {
                             {movies['movies'].map(
                                 (mov) => (
                                     <GridListTile key={mov['id']}>
-                                        <img src='https://upload.wikimedia.org/wikipedia/en/8/85/Sanju_poster.jpg' alt='poster' crossOrigin='anonymous' />
+                                        <img src={mov['poster_url']} alt='poster' crossOrigin='anonymous' />
                                         <GridListTileBar
                                             title={mov['title']}
                                         >
