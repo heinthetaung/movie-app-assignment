@@ -5,6 +5,15 @@ import Button from '@material-ui/core/Button'
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import Typography from "@material-ui/core/Typography";
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+
 
 let Home = () => {
 
@@ -57,6 +66,20 @@ let Home = () => {
         padding: '0px 2px',
     }
 
+    let filterCardStyle = {
+        margin: 'theme.spacing.unit',
+        minWidth: '240px',
+        maxWidth: '240px',
+    }
+
+    const formStyle = {
+    }
+
+
+    const [age, setAge] = React.useState('');
+    const handleChange = (event) => {
+        setAge(event.target.value);
+    };
 
     try {
         if (Object.keys(releasedMovies).length !== 0 && Object.keys(upComingMovies).length !== 0) {
@@ -84,7 +107,7 @@ let Home = () => {
                     </div>
                     <div className='flex-container'>
                         <div className='column1'>
-                            1 <GridList style={releasedMovieStyle} cellHeight={350} cols={4}>
+                            <GridList style={releasedMovieStyle} cellHeight={350} cols={4}>
                                 {releasedMovies['movies'].map(
                                     (mov) => (
                                         <GridListTile key={mov['id']}>
@@ -103,7 +126,37 @@ let Home = () => {
                             </GridList>
                         </div>
                         <div className='column2'>
-                            1
+                            <Card style={filterCardStyle}>
+                                <CardContent>
+                                    <p style={{ color: 'theme.palette.primary.light' }}>FIND MOVIES BY:</p>
+                                    <FormControl>
+                                        <InputLabel htmlFor="my-input">Movie Name</InputLabel>
+                                        <Input id="first-input" aria-describedby="my-helper-text" />
+                                    </FormControl>
+                                    <FormControl style={formStyle}>
+                                        <InputLabel htmlFor="age-simple">Age</InputLabel>
+                                        <Select
+                                            value={age}
+                                            onChange={handleChange}
+                                            inputProps={{
+                                                name: 'age',
+                                                id: 'age-simple',
+                                            }}>
+                                                {
+                                                
+                                                }
+                                            <MenuItem value=""><em>None</em></MenuItem>
+                                            <MenuItem value={10}>Ten</MenuItem>
+                                            <MenuItem value={20}>Twenty</MenuItem>
+                                            <MenuItem value={30}>Thirty</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                    <div>
+                                        <Button color='primary' variant='contained'>Apply</Button>
+
+                                    </div>
+                                </CardContent>
+                            </Card>
                         </div>
                     </div>
                 </div>

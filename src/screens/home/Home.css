@@ -16,12 +16,12 @@
 }
 .column1 {
   flex: 76%;
-  background-color: lightslategray;
+  /* background-color: lightslategray; */
   margin: 16px;
 }
 .column2 {
   flex: 24%;
-  border-left: 1px solid #eee;
+  /* border-left: 1px solid #eee; */
   background-color: lightcyan;
   margin: 16px;
 }
