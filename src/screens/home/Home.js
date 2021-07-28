@@ -91,6 +91,10 @@ let Home = () => {
                                             <img src={mov['poster_url']} alt='poster' crossOrigin='anonymous' />
                                             <GridListTileBar
                                                 title={mov['title']}
+                                                subtitle={
+                                                    <span>Release date:
+                                                        {new Date(mov['release_date']).toDateString()}
+                                                    </span>}
                                             >
                                             </GridListTileBar>
                                         </GridListTile>
