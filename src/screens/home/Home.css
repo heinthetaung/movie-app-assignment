@@ -1,7 +1,27 @@
 #heading {
-    size: 1rem;
-    background-color:#ff9999;
-    text-align: center;
-    margin: 0px;
-    padding: 8px;
+  size: 1rem;
+  background-color: #ff9999;
+  text-align: center;
+  margin: 0px;
+  padding: 8px;
+}
+
+.flex-container {
+  display: flex;
+  /* justify-content: space-around; */
+  /* align-items: stretch; */
+  /* margin: 16px; */
+  /* background-color: black; */
+  /* max-width: 1200px; */
+}
+.column1 {
+  flex: 76%;
+  background-color: lightslategray;
+  margin: 16px;
+}
+.column2 {
+  flex: 24%;
+  border-left: 1px solid #eee;
+  background-color: lightcyan;
+  margin: 16px;
 }

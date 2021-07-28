@@ -8,13 +8,13 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 
 let Home = () => {
 
-    const [movies, setMovies] = useState({})
+    const [releasedMovies, setReleasedMovies] = useState({})
     const [upComingMovies, setUpComingMovies] = useState({})
 
     const [value, setValue] = useState(true)
-    let getMovieData = async () => {
+    let getMovieData = async (parameter) => {
         const baseURL = 'http://localhost:8085/api/v1/movies'
-        const url = baseURL + '?page=1&limit=10'
+        const url = baseURL + parameter
         try {
             let rawResponse = await fetch(url, {
                 mode: 'cors',
@@ -31,13 +31,16 @@ let Home = () => {
 
 
     useEffect(() => {
-        getMovieData().then(
+        getMovieData('?page=1&limit=10').then(
             data => {
-                setMovies(data)
-                // setUpComingMovies(data['movies'])
+                setUpComingMovies(data)
             }
         )
-
+        getMovieData('?page=2&limit=10').then(
+            data => {
+                setReleasedMovies(data)
+            }
+        )
     }, [value])
 
     const updateMovieHandler = () => {
@@ -49,10 +52,15 @@ let Home = () => {
         padding: '0px 2px',
     }
 
+    const releasedMovieStyle = {
+        // flexWrap: 'nowrap',
+        padding: '0px 2px',
+    }
+
 
     try {
-        if (Object.keys(movies).length !== 0) {
-            console.log(movies)
+        if (Object.keys(releasedMovies).length !== 0 && Object.keys(upComingMovies).length !== 0) {
+            console.log(releasedMovies, upComingMovies)
             return (
                 <div>
                     <Header name='Login' access='logged-i'></Header>
@@ -61,7 +69,7 @@ let Home = () => {
                     <br />
                     <div>
                         <GridList style={imageListStyle} cellHeight={250} cols={6}>
-                            {movies['movies'].map(
+                            {upComingMovies['movies'].map(
                                 (mov) => (
                                     <GridListTile key={mov['id']}>
                                         <img src={mov['poster_url']} alt='poster' crossOrigin='anonymous' />
@@ -73,6 +81,26 @@ let Home = () => {
                                 )
                             )}
                         </GridList>
+                    </div>
+                    <div className='flex-container'>
+                        <div className='column1'>
+                            1 <GridList style={releasedMovieStyle} cellHeight={350} cols={4}>
+                                {releasedMovies['movies'].map(
+                                    (mov) => (
+                                        <GridListTile key={mov['id']}>
+                                            <img src={mov['poster_url']} alt='poster' crossOrigin='anonymous' />
+                                            <GridListTileBar
+                                                title={mov['title']}
+                                            >
+                                            </GridListTileBar>
+                                        </GridListTile>
+                                    )
+                                )}
+                            </GridList>
+                        </div>
+                        <div className='column2'>
+                            1
+                        </div>
                     </div>
                 </div>
             )
