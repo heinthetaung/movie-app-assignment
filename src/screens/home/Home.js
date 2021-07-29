@@ -13,9 +13,34 @@ import FormControl from "@material-ui/core/FormControl";
 import Typography from "@material-ui/core/Typography";
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import Checkbox from '@material-ui/core/Checkbox';
+import { withStyles } from "@material-ui/core/styles";
 
 
-let Home = () => {
+const styles = (theme) => ({
+    cardHeading: {
+        color: theme.palette.primary.light,
+    },
+
+    imageListStyle: {
+        flexWrap: 'nowrap',
+        padding: '0px 2px',
+    },
+
+    releasedMovieStyle: {
+        padding: '0px 2px',
+    },
+
+    formControl: {
+        margin: theme.spacing.unit,
+        minWidth: 240,
+        maxWidth: 240,
+    },
+
+
+});
+
+let Home = (props) => {
 
     const [releasedMovies, setReleasedMovies] = useState({})
     const [upComingMovies, setUpComingMovies] = useState({})
@@ -64,30 +89,11 @@ let Home = () => {
         setValue(!value)
     }
 
-    const imageListStyle = {
-        flexWrap: 'nowrap',
-        padding: '0px 2px',
-    }
-
-    const releasedMovieStyle = {
-        // flexWrap: 'nowrap',
-        padding: '0px 2px',
-    }
-
-    let filterCardStyle = {
-        margin: 'theme.spacing.unit',
-        minWidth: '240px',
-        maxWidth: '240px',
-    }
-
-    const formStyle = {
-    }
-
-
-    const [age, setAge] = React.useState('');
+    const [genreID, setGenreID] = React.useState([]);
     const handleChange = (event) => {
-        setAge(event.target.value);
+        setGenreID(event.target.value);
     };
+    const { classes } = props;
 
     try {
         if (Object.keys(releasedMovies).length !== 0 &&
@@ -101,7 +107,7 @@ let Home = () => {
                     <Button onClick={updateMovieHandler}>Update Movies List</Button>
                     <br />
                     <div>
-                        <GridList style={imageListStyle} cellHeight={250} cols={6}>
+                        <GridList className={classes.imageListStyle} cellHeight={250} cols={6}>
                             {upComingMovies['movies'].map(
                                 (mov) => (
                                     <GridListTile key={mov['id']}>
@@ -117,7 +123,7 @@ let Home = () => {
                     </div>
                     <div className='flex-container'>
                         <div className='column1'>
-                            <GridList style={releasedMovieStyle} cellHeight={350} cols={4}>
+                            <GridList className={classes.releasedMovieStyle} cellHeight={350} cols={4}>
                                 {releasedMovies['movies'].map(
                                     (mov) => (
                                         <GridListTile key={mov['id']}>
@@ -136,31 +142,35 @@ let Home = () => {
                             </GridList>
                         </div>
                         <div className='column2'>
-                            <Card style={filterCardStyle}>
+                            <Card>
                                 <CardContent>
-                                    <p style={{ color: 'theme.palette.primary.light' }}>FIND MOVIES BY:</p>
-                                    <FormControl>
+                                    <FormControl className={classes.formControl}>
+                                        <Typography className={classes.cardHeading} >FIND MOVIES BY:</Typography>
+                                    </FormControl>
+                                    <FormControl className={classes.formControl}>
                                         <InputLabel htmlFor="my-input">Movie Name</InputLabel>
                                         <Input id="first-input" aria-describedby="my-helper-text" />
                                     </FormControl>
-                                    <FormControl style={formStyle}>
-                                        <InputLabel htmlFor="age-simple">Age</InputLabel>
+                                    <FormControl className={classes.formControl}>
+                                        <InputLabel htmlFor="genres-simple">Genres</InputLabel>
                                         <Select
-                                            value={age}
-                                            onChange={handleChange}
-                                            inputProps={{
-                                                name: 'age',
-                                                id: 'age-simple',
-                                            }}>
+                                            multiple
+                                            value={genreID}
+                                            // onChange={handleChange}
+                                        >
                                             {genres['genres'].map((genre) => (
-                                                <MenuItem value={genre['id']}>{genre['genre']}</MenuItem>
+                                                <MenuItem key={genre['id']}>
+                                                    <Checkbox
+                                                        value="checkedA"
+                                                    />
+                                                    {genre['genre']}
+                                                </MenuItem>
                                             ))}
                                         </Select>
                                     </FormControl>
-                                    <div>
+                                    <FormControl className={classes.formControl}>
                                         <Button color='primary' variant='contained'>Apply</Button>
-
-                                    </div>
+                                    </FormControl>
                                 </CardContent>
                             </Card>
                         </div>
@@ -185,4 +195,4 @@ let Home = () => {
     )
 }
 
-export default Home;
+export default withStyles(styles)(Home);

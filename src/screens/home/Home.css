@@ -15,12 +15,12 @@
   /* max-width: 1200px; */
 }
 .column1 {
-  flex: 76%;
+  width: 76%;
   /* background-color: lightslategray; */
   margin: 16px;
 }
 .column2 {
-  flex: 24%;
+  width: 26%;
   /* border-left: 1px solid #eee; */
   background-color: lightcyan;
   margin: 16px;
