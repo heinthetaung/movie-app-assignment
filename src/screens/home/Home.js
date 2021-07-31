@@ -42,9 +42,10 @@ const styles = (theme) => ({
 
 let Home = (props) => {
 
-    const [releasedMovies, setReleasedMovies] = useState({})
+    const [releasedMovies, setReleasedMovies] = useState([])
     const [upComingMovies, setUpComingMovies] = useState({})
-    const [genres, setGenres] = useState({})
+    const [genres, setGenres] = useState([])
+    const [genreChecked, setGenreChecked] = React.useState([]);
 
     const [value, setValue] = useState(true)
     let fetchData = async (baseURL, parameter = '') => {
@@ -80,7 +81,7 @@ let Home = (props) => {
         )
         fetchData(genresBaseURL).then(
             data => {
-                setGenres(data)
+                setGenres(data['genres'])
             }
         )
     }, [value])
@@ -88,18 +89,18 @@ let Home = (props) => {
     const updateMovieHandler = () => {
         setValue(!value)
     }
-
-    const [genreID, setGenreID] = React.useState([]);
-    const handleChange = (event) => {
-        setGenreID(event.target.value);
+    
+    const selectChangeHandler = (event) => {
+        const newGenreChecked = event.target.value
+        setGenreChecked(newGenreChecked);
     };
     const { classes } = props;
 
-    try {
+    // try {
         if (Object.keys(releasedMovies).length !== 0 &&
             Object.keys(upComingMovies).length !== 0 &&
-            Object.keys(genres).length !== 0) {
-            console.log(releasedMovies, upComingMovies, genres)
+            genres.length !== 0) {
+            // console.log(releasedMovies, upComingMovies, genres)
             return (
                 <div>
                     <Header name='Login' access='logged-i'></Header>
@@ -155,13 +156,14 @@ let Home = (props) => {
                                         <InputLabel htmlFor="genres-simple">Genres</InputLabel>
                                         <Select
                                             multiple
-                                            value={genreID}
-                                            // onChange={handleChange}
+                                            value={genreChecked}
+                                            renderValue={item => item.join(',')}
+                                            onChange={selectChangeHandler}
                                         >
-                                            {genres['genres'].map((genre) => (
-                                                <MenuItem key={genre['id']}>
+                                            {genres.map((genre) => (
+                                                <MenuItem key={genre['id']} value={genre['genre']}>
                                                     <Checkbox
-                                                        value="checkedA"
+                                                        checked={genreChecked.includes(genre['genre'])}
                                                     />
                                                     {genre['genre']}
                                                 </MenuItem>
@@ -185,14 +187,14 @@ let Home = (props) => {
             )
         }
     }
-    catch (e) {
-        console.log('error')
-    }
-    return (
-        <div>
-            loading
-        </div>
-    )
-}
+    // catch (e) {
+    //     console.log('error')
+    // }
+    // return (
+    //     <div>
+    //         loading
+    //     </div>
+    // )
+// }
 
 export default withStyles(styles)(Home);
