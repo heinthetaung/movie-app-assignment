@@ -99,10 +99,16 @@ let Home = (props) => {
         setValue(!value)
     }
     
-    const selectChangeHandler = (event) => {
+    const genresSelectChangeHandler = (event) => {
         const newGenreChecked = event.target.value
         setGenreChecked(newGenreChecked);
     };
+
+    const artistsSelectChangeHandler = (event) => {
+        const newArtistChecked = event.target.value
+        setArtistChecked(newArtistChecked);
+    };
+
     const { classes } = props;
 
     // try {
@@ -167,7 +173,7 @@ let Home = (props) => {
                                             multiple
                                             value={genreChecked}
                                             renderValue={item => item.join(',')}
-                                            onChange={selectChangeHandler}
+                                            onChange={genresSelectChangeHandler}
                                         >
                                             {genres.map((genre) => (
                                                 <MenuItem key={genre['id']} value={genre['genre']}>
@@ -179,6 +185,26 @@ let Home = (props) => {
                                             ))}
                                         </Select>
                                     </FormControl>
+
+                                    <FormControl className={classes.formControl}>
+                                        <InputLabel htmlFor="artists-simple">Artists</InputLabel>
+                                        <Select
+                                            multiple
+                                            value={artistChecked}
+                                            renderValue={item => item.join(',')}
+                                            onChange={artistsSelectChangeHandler}
+                                        >
+                                            {artists.map((artist) => (
+                                                <MenuItem key={artist['id']} value={artist['first_name']+' '+artist['last_name']}>
+                                                    <Checkbox
+                                                        checked={artistChecked.includes(artist['first_name']+' '+artist['last_name'])}
+                                                    />
+                                                    {artist['first_name']+' '+artist['last_name']}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+
                                     <FormControl className={classes.formControl}>
                                         <Button color='primary' variant='contained'>Apply</Button>
                                     </FormControl>
