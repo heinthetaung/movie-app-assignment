@@ -46,6 +46,8 @@ let Home = (props) => {
     const [upComingMovies, setUpComingMovies] = useState({})
     const [genres, setGenres] = useState([])
     const [genreChecked, setGenreChecked] = React.useState([]);
+    const [artists, setArtists] = useState([])
+    const [artistChecked, setArtistChecked] = React.useState([]);
 
     const [value, setValue] = useState(true)
     let fetchData = async (baseURL, parameter = '') => {
@@ -68,6 +70,7 @@ let Home = (props) => {
     useEffect(() => {
         const movieBaseURL = 'http://localhost:8085/api/v1/movies'
         const genresBaseURL = 'http://localhost:8085/api/v1/genres'
+        const artistsBaseURL = 'http://localhost:8085/api/v1/artists    '
 
         fetchData(movieBaseURL, '?page=1&limit=10').then(
             data => {
@@ -82,6 +85,12 @@ let Home = (props) => {
         fetchData(genresBaseURL).then(
             data => {
                 setGenres(data['genres'])
+            }
+        )
+
+        fetchData(artistsBaseURL).then(
+            data => {
+                setArtists(data['artists'])
             }
         )
     }, [value])
@@ -100,7 +109,7 @@ let Home = (props) => {
         if (Object.keys(releasedMovies).length !== 0 &&
             Object.keys(upComingMovies).length !== 0 &&
             genres.length !== 0) {
-            // console.log(releasedMovies, upComingMovies, genres)
+            console.log(releasedMovies, upComingMovies, genres, artists)
             return (
                 <div>
                     <Header name='Login' access='logged-i'></Header>
