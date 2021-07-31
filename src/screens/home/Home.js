@@ -15,6 +15,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from "@material-ui/core/styles";
+import TextField from '@material-ui/core/TextField';
 
 
 const styles = (theme) => ({
@@ -98,7 +99,7 @@ let Home = (props) => {
     const updateMovieHandler = () => {
         setValue(!value)
     }
-    
+
     const genresSelectChangeHandler = (event) => {
         const newGenreChecked = event.target.value
         setGenreChecked(newGenreChecked);
@@ -111,7 +112,7 @@ let Home = (props) => {
 
     const { classes } = props;
 
-    // try {
+    try {
         if (Object.keys(releasedMovies).length !== 0 &&
             Object.keys(upComingMovies).length !== 0 &&
             genres.length !== 0) {
@@ -120,8 +121,6 @@ let Home = (props) => {
                 <div>
                     <Header name='Login' access='logged-i'></Header>
                     <p id='heading'>Upcoming Movies</p>
-                    <Button onClick={updateMovieHandler}>Update Movies List</Button>
-                    <br />
                     <div>
                         <GridList className={classes.imageListStyle} cellHeight={250} cols={6}>
                             {upComingMovies['movies'].map(
@@ -195,14 +194,40 @@ let Home = (props) => {
                                             onChange={artistsSelectChangeHandler}
                                         >
                                             {artists.map((artist) => (
-                                                <MenuItem key={artist['id']} value={artist['first_name']+' '+artist['last_name']}>
+                                                <MenuItem key={artist['id']} value={artist['first_name'] + ' ' + artist['last_name']}>
                                                     <Checkbox
-                                                        checked={artistChecked.includes(artist['first_name']+' '+artist['last_name'])}
+                                                        checked={artistChecked.includes(artist['first_name'] + ' ' + artist['last_name'])}
                                                     />
-                                                    {artist['first_name']+' '+artist['last_name']}
+                                                    {artist['first_name'] + ' ' + artist['last_name']}
                                                 </MenuItem>
                                             ))}
                                         </Select>
+                                    </FormControl>
+
+                                    <FormControl className={classes.formControl}>
+                                        <TextField
+                                            id="date"
+                                            label="Release Date Start"
+                                            type="date"
+                                            // defaultValue="2017-05-24"
+                                            // className={classes.textField}
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                        />
+                                    </FormControl>
+
+                                    <FormControl className={classes.formControl}>
+                                        <TextField
+                                            id="date"
+                                            label="Release Date End"
+                                            type="date"
+                                            // defaultValue="2017-05-24"
+                                            // className={classes.textField}
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                        />
                                     </FormControl>
 
                                     <FormControl className={classes.formControl}>
@@ -222,14 +247,14 @@ let Home = (props) => {
             )
         }
     }
-    // catch (e) {
-    //     console.log('error')
-    // }
-    // return (
-    //     <div>
-    //         loading
-    //     </div>
-    // )
-// }
+    catch (e) {
+        console.log('error')
+    }
+    return (
+        <div>
+            loading
+        </div>
+    )
+}
 
 export default withStyles(styles)(Home);
