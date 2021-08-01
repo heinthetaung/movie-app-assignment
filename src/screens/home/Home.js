@@ -31,6 +31,7 @@ const styles = (theme) => ({
 
     releasedMovieStyle: {
         padding: '0px 2px',
+        cursor: 'pointer',
     },
 
     formControl: {
