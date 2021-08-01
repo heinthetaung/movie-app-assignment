@@ -49,8 +49,15 @@ let Home = (props) => {
     const [genreChecked, setGenreChecked] = React.useState([]);
     const [artists, setArtists] = useState([])
     const [artistChecked, setArtistChecked] = React.useState([]);
+    const [releasedDateStart, setReleasedDateStart] = React.useState('');
+    const [releasedDateEnd, setReleasedDateEnd] = React.useState('');
 
-    const [value, setValue] = useState(true)
+    const [releasedMoviesParameter, setReleasedMoviesParameter] = useState('?status=RELEASED')
+
+    const movieBaseURL = 'http://localhost:8085/api/v1/movies'
+    const genresBaseURL = 'http://localhost:8085/api/v1/genres'
+    const artistsBaseURL = 'http://localhost:8085/api/v1/artists'
+
     let fetchData = async (baseURL, parameter = '') => {
         const url = baseURL + parameter
         try {
@@ -69,18 +76,10 @@ let Home = (props) => {
 
 
     useEffect(() => {
-        const movieBaseURL = 'http://localhost:8085/api/v1/movies'
-        const genresBaseURL = 'http://localhost:8085/api/v1/genres'
-        const artistsBaseURL = 'http://localhost:8085/api/v1/artists    '
-
-        fetchData(movieBaseURL, '?page=1&limit=10').then(
+        fetchData(movieBaseURL, '?status=PUBLISHED').then(
             data => {
                 setUpComingMovies(data)
-            }
-        )
-        fetchData(movieBaseURL, '?page=2&limit=10').then(
-            data => {
-                setReleasedMovies(data)
+
             }
         )
         fetchData(genresBaseURL).then(
@@ -94,20 +93,36 @@ let Home = (props) => {
                 setArtists(data['artists'])
             }
         )
-    }, [value])
+    }, [])
 
-    const updateMovieHandler = () => {
-        setValue(!value)
-    }
+    useEffect(() => {
+        fetchData(movieBaseURL, releasedMoviesParameter).then(
+            data => {
+                setReleasedMovies(data)
+
+            }
+        )
+    }, [releasedMoviesParameter])
 
     const genresSelectChangeHandler = (event) => {
-        const newGenreChecked = event.target.value
-        setGenreChecked(newGenreChecked);
+        setGenreChecked(event.target.value);
     };
 
     const artistsSelectChangeHandler = (event) => {
-        const newArtistChecked = event.target.value
-        setArtistChecked(newArtistChecked);
+        setArtistChecked(event.target.value);
+    };
+
+    const releasedDateStartHandler = (event) => {
+        setReleasedDateStart(event.target.value);
+    };
+
+    const releasedDateEndHandler = (event) => {
+        setReleasedDateEnd(event.target.value);
+    };
+
+    const applyButtonHandler = () => {
+        let param = '?status=RELEASD'
+        setReleasedMoviesParameter(param)
     };
 
     const { classes } = props;
@@ -116,7 +131,7 @@ let Home = (props) => {
         if (Object.keys(releasedMovies).length !== 0 &&
             Object.keys(upComingMovies).length !== 0 &&
             genres.length !== 0) {
-            console.log(releasedMovies, upComingMovies, genres, artists)
+            console.log(releasedMovies, upComingMovies, genres, artists, releasedDateStart, releasedDateEnd)
             return (
                 <div>
                     <Header name='Login' access='logged-i'></Header>
@@ -209,11 +224,10 @@ let Home = (props) => {
                                             id="date"
                                             label="Release Date Start"
                                             type="date"
-                                            // defaultValue="2017-05-24"
-                                            // className={classes.textField}
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
+                                            onChange={releasedDateStartHandler}
                                         />
                                     </FormControl>
 
@@ -222,16 +236,15 @@ let Home = (props) => {
                                             id="date"
                                             label="Release Date End"
                                             type="date"
-                                            // defaultValue="2017-05-24"
-                                            // className={classes.textField}
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
+                                            onChange={releasedDateEndHandler}
                                         />
                                     </FormControl>
 
                                     <FormControl className={classes.formControl}>
-                                        <Button color='primary' variant='contained'>Apply</Button>
+                                        <Button color='primary' variant='contained' onClick={applyButtonHandler}>Apply</Button>
                                     </FormControl>
                                 </CardContent>
                             </Card>
