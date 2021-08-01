@@ -127,8 +127,9 @@ let Home = (props) => {
         let start = '&start_date=' + releasedDateStart
         let end = '&end_date=' + releasedDateEnd
         let genre = '&genre=' + genreChecked
-        let artist = '&genre=' + artistChecked
+        let artist = '&artists=' + artistChecked
         let title = '&title=' + movieTitle
+
         param = param + start + end+ genre + artist + title
         setReleasedMoviesParameter(param)
     };
