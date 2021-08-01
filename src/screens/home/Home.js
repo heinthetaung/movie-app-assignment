@@ -43,6 +43,7 @@ const styles = (theme) => ({
 
 let Home = (props) => {
 
+    const [movieTitle, setMovieTitle] = useState('')
     const [releasedMovies, setReleasedMovies] = useState([])
     const [upComingMovies, setUpComingMovies] = useState({})
     const [genres, setGenres] = useState([])
@@ -60,6 +61,7 @@ let Home = (props) => {
 
     let fetchData = async (baseURL, parameter = '') => {
         const url = baseURL + parameter
+        console.log(url)
         try {
             let rawResponse = await fetch(url, {
                 mode: 'cors',
@@ -99,7 +101,6 @@ let Home = (props) => {
         fetchData(movieBaseURL, releasedMoviesParameter).then(
             data => {
                 setReleasedMovies(data)
-
             }
         )
     }, [releasedMoviesParameter])
@@ -121,7 +122,14 @@ let Home = (props) => {
     };
 
     const applyButtonHandler = () => {
-        let param = '?status=RELEASD'
+        let param = '?status=RELEASED'
+
+        let start = '&start_date=' + releasedDateStart
+        let end = '&end_date=' + releasedDateEnd
+        let genre = '&genre=' + genreChecked
+        let artist = '&genre=' + artistChecked
+        let title = '&title=' + movieTitle
+        param = param + start + end+ genre + artist + title
         setReleasedMoviesParameter(param)
     };
 
@@ -131,7 +139,7 @@ let Home = (props) => {
         if (Object.keys(releasedMovies).length !== 0 &&
             Object.keys(upComingMovies).length !== 0 &&
             genres.length !== 0) {
-            console.log(releasedMovies, upComingMovies, genres, artists, releasedDateStart, releasedDateEnd)
+            // console.log(releasedMovies, upComingMovies, genres, artists, releasedDateStart, releasedDateEnd)
             return (
                 <div>
                     <Header name='Login' access='logged-i'></Header>
@@ -179,7 +187,9 @@ let Home = (props) => {
                                     </FormControl>
                                     <FormControl className={classes.formControl}>
                                         <InputLabel htmlFor="my-input">Movie Name</InputLabel>
-                                        <Input id="first-input" aria-describedby="my-helper-text" />
+                                        <Input id="first-input"
+                                            aria-describedby="my-helper-text"
+                                            onChange={event => setMovieTitle(event.target.value)} />
                                     </FormControl>
                                     <FormControl className={classes.formControl}>
                                         <InputLabel htmlFor="genres-simple">Genres</InputLabel>
