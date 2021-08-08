@@ -13,6 +13,15 @@ const Details = () => {
     console.log(params)
 
     const [movie, setMovie] = useState({})
+    const [poster, setPoster] = useState('')
+    const [title, setTitle] = useState('')
+    const [genres, setGenres] = useState([])
+    const [duration, setDuration] = useState(0)
+    const [releaseDate, setReleaseDate] = useState('')
+    const [rating, setRating] = useState(0)
+    const [storyline, setStoryline] = useState('')
+
+    
 
     let history = useHistory();
 
@@ -46,12 +55,23 @@ const Details = () => {
         let baseURL = 'http://localhost:8085/api/v1/movies/'
         fetchData(baseURL, params.movie_id).then(
             (data) => {
-                if (data !== undefined) setMovie(data)
+                if (data !== undefined) {
+                    setMovie(data)
+                    setPoster(data['poster_url'])
+                    setTitle(data['title'])
+                    setGenres(data['genres'])
+                    setDuration(data['duration'])
+                    setReleaseDate(data['release_date'])
+                    setRating(data['rating'])
+                    setStoryline(data['storyline'])
+                }
 
             }
         )
     }, [])
     console.log(movie['poster_url'])
+    console.log(movie)
+    console.log(genres.join(','))
 
     return (
         <div>
@@ -62,10 +82,34 @@ const Details = () => {
             <div className='main-container'>
                 <div className='left'>
                     left
-                    <img src={movie['poster_url']} alt='poster' />
+                    <img src={poster} alt='poster' />
                 </div>
                 <div className='center'>
                     center
+                    <Typography variant="headline" component='h2'>
+                        {title}
+                    </Typography>
+                    <Typography>
+                        <b>Genre:</b> {genres.join(',')}
+                    </Typography>
+                    <Typography>
+                        <b>Duration:</b> {duration}
+                    </Typography>
+                    <Typography>
+                        <b>Released Date:</b> {new Date(releaseDate).toDateString()}
+                    </Typography>
+                    <Typography>
+                        <b>Rating:</b> {rating}
+                    </Typography>
+                    <br/>
+                    <Typography>
+                        <b>Plot:</b> {storyline}
+                    </Typography>
+                    <br/>
+                    <Typography>
+                        <b>Trailer:</b>
+                    </Typography>
+                    
                 </div>
                 <div className='right'>
                     right
