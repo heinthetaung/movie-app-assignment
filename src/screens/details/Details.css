@@ -4,15 +4,12 @@
 
 .left {
     flex: 20%;
-    background-color: brown;
 }
 
 .center {
     flex: 60%;
-    background-color: green;
 }
 
 .right {
     flex: 20%;
-    background-color: aqua;
 }

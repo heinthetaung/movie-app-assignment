@@ -4,6 +4,7 @@ import { useLocation, useParams, useHistory } from 'react-router-dom';
 import Typography from "@material-ui/core/Typography";
 import './Details.css'
 import { useState } from 'react';
+import YouTube from 'react-youtube';
 
 const Details = () => {
 
@@ -20,7 +21,7 @@ const Details = () => {
     const [releaseDate, setReleaseDate] = useState('')
     const [rating, setRating] = useState(0)
     const [storyline, setStoryline] = useState('')
-
+    const [videoID, setVideoID] = useState('')
     
 
     let history = useHistory();
@@ -64,6 +65,7 @@ const Details = () => {
                     setReleaseDate(data['release_date'])
                     setRating(data['rating'])
                     setStoryline(data['storyline'])
+                    setVideoID(data['trailer_url'])
                 }
 
             }
@@ -72,7 +74,7 @@ const Details = () => {
     console.log(movie['poster_url'])
     console.log(movie)
     console.log(genres.join(','))
-
+    console.log(videoID.split('=')[1])
     return (
         <div>
             <Header></Header>
@@ -81,11 +83,9 @@ const Details = () => {
             </Typography>
             <div className='main-container'>
                 <div className='left'>
-                    left
                     <img src={poster} alt='poster' />
                 </div>
                 <div className='center'>
-                    center
                     <Typography variant="headline" component='h2'>
                         {title}
                     </Typography>
@@ -109,13 +109,12 @@ const Details = () => {
                     <Typography>
                         <b>Trailer:</b>
                     </Typography>
-                    
+                    <YouTube style={{margin: '300px'}}videoId={videoID.split('=')[1]}></YouTube>
                 </div>
                 <div className='right'>
-                    right
+                    
                 </div>
             </div>
-            {params.movie_id}
         </div>
     )
 };
