@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import './Details.css'
 import { useState } from 'react';
 import YouTube from 'react-youtube';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
 
 const Details = () => {
 
@@ -22,7 +23,7 @@ const Details = () => {
     const [rating, setRating] = useState(0)
     const [storyline, setStoryline] = useState('')
     const [videoID, setVideoID] = useState('')
-    
+
 
     let history = useHistory();
 
@@ -33,6 +34,22 @@ const Details = () => {
         marginTop: '8px',
         marginBottom: '0px',
         height: '24px'
+    }
+
+    let starBlackStyle = {
+        color: 'black'
+    }
+
+    let starYellowStyle = {
+        color: 'yellow'
+    }
+
+    let starStyle= {
+        one: {color: 'yellow', cursor: 'pointer'},
+        two: {color: 'yellow'},
+        three: {color: 'yellow'},
+        four: {color: 'yellow'},
+        five: {color: 'yellow'},
     }
 
     let fetchData = async (baseURL, parameter = '') => {
@@ -75,6 +92,13 @@ const Details = () => {
     console.log(movie)
     console.log(genres.join(','))
     console.log(videoID.split('=')[1])
+
+    let starClickHandler = (event) => {
+        console.log(event)
+        console.log(event.target)
+        console.log(event.target.id)
+    }
+
     return (
         <div>
             <Header></Header>
@@ -101,18 +125,25 @@ const Details = () => {
                     <Typography>
                         <b>Rating:</b> {rating}
                     </Typography>
-                    <br/>
+                    <br />
                     <Typography>
                         <b>Plot:</b> {storyline}
                     </Typography>
-                    <br/>
+                    <br />
                     <Typography>
                         <b>Trailer:</b>
                     </Typography>
-                    <YouTube style={{margin: '300px'}}videoId={videoID.split('=')[1]}></YouTube>
+                    <YouTube style={{ margin: '300px' }} videoId={videoID.split('=')[1]}></YouTube>
                 </div>
                 <div className='right'>
-                    
+                    <Typography>
+                        <b>Rate this movie:</b>
+                    </Typography>
+                    <StarBorderIcon id='one' onClick={starClickHandler} style={starStyle.one}></StarBorderIcon>
+                    <StarBorderIcon id='two' onClick={starClickHandler} style={starStyle.two}></StarBorderIcon>
+                    <StarBorderIcon id='three' onClick={starClickHandler} style={starStyle.three}></StarBorderIcon>
+                    <StarBorderIcon id='four' onClick={starClickHandler} style={starStyle.four}></StarBorderIcon>
+                    <StarBorderIcon id='five' onClick={starClickHandler} style={starStyle.five}></StarBorderIcon>
                 </div>
             </div>
         </div>
