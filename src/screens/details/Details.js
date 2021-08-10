@@ -24,6 +24,15 @@ const Details = () => {
     const [storyline, setStoryline] = useState('')
     const [videoID, setVideoID] = useState('')
 
+    let starStyle = {
+        one: { color: 'black', cursor: 'pointer' },
+        two: { color: 'black', cursor: 'pointer' },
+        three: { color: 'black', cursor: 'pointer' },
+        four: { color: 'black', cursor: 'pointer' },
+        five: { color: 'black', cursor: 'pointer' },
+    }
+
+    const [star, setStar] = useState(starStyle)
 
     let history = useHistory();
 
@@ -37,19 +46,13 @@ const Details = () => {
     }
 
     let starBlackStyle = {
-        color: 'black'
+        color: 'black',
+        cursor: 'pointer'
     }
 
     let starYellowStyle = {
-        color: 'yellow'
-    }
-
-    let starStyle= {
-        one: {color: 'yellow', cursor: 'pointer'},
-        two: {color: 'yellow'},
-        three: {color: 'yellow'},
-        four: {color: 'yellow'},
-        five: {color: 'yellow'},
+        color: 'yellow',
+        cursor: 'pointer'
     }
 
     let fetchData = async (baseURL, parameter = '') => {
@@ -93,10 +96,54 @@ const Details = () => {
     console.log(genres.join(','))
     console.log(videoID.split('=')[1])
 
-    let starClickHandler = (event) => {
+    let starClickHandler = (event) => { 
         console.log(event)
         console.log(event.target)
         console.log(event.target.id)
+        switch (event.target.id) {
+            case '1':
+                starStyle.one = starYellowStyle
+                starStyle.two = starBlackStyle
+                starStyle.three = starBlackStyle
+                starStyle.four = starBlackStyle
+                starStyle.five = starBlackStyle
+                setStar(starStyle)
+                break;
+            case '2':
+                starStyle.one = starYellowStyle
+                starStyle.two = starYellowStyle
+                starStyle.three = starBlackStyle
+                starStyle.four = starBlackStyle
+                starStyle.five = starBlackStyle
+                setStar(starStyle)
+                break;
+            case '3':
+                starStyle.one = starYellowStyle
+                starStyle.two = starYellowStyle
+                starStyle.three = starYellowStyle
+                starStyle.four = starBlackStyle
+                starStyle.five = starBlackStyle
+                setStar(starStyle)
+                break;
+            case '4':
+                starStyle.one = starYellowStyle
+                starStyle.two = starYellowStyle
+                starStyle.three = starYellowStyle
+                starStyle.four = starYellowStyle
+                starStyle.five = starBlackStyle
+                setStar(starStyle)
+                break;
+            case '5':
+                starStyle.one = starYellowStyle
+                starStyle.two = starYellowStyle
+                starStyle.three = starYellowStyle
+                starStyle.four = starYellowStyle
+                starStyle.five = starYellowStyle
+                setStar(starStyle)
+                break;
+            default:
+                break;
+        }
     }
 
     return (
@@ -139,11 +186,11 @@ const Details = () => {
                     <Typography>
                         <b>Rate this movie:</b>
                     </Typography>
-                    <StarBorderIcon id='one' onClick={starClickHandler} style={starStyle.one}></StarBorderIcon>
-                    <StarBorderIcon id='two' onClick={starClickHandler} style={starStyle.two}></StarBorderIcon>
-                    <StarBorderIcon id='three' onClick={starClickHandler} style={starStyle.three}></StarBorderIcon>
-                    <StarBorderIcon id='four' onClick={starClickHandler} style={starStyle.four}></StarBorderIcon>
-                    <StarBorderIcon id='five' onClick={starClickHandler} style={starStyle.five}></StarBorderIcon>
+                    <StarBorderIcon id='1' onClick={starClickHandler} style={star.one}></StarBorderIcon>
+                    <StarBorderIcon id='2' onClick={starClickHandler} style={star.two}></StarBorderIcon>
+                    <StarBorderIcon id='3' onClick={starClickHandler} style={star.three}></StarBorderIcon>
+                    <StarBorderIcon id='4' onClick={starClickHandler} style={star.four}></StarBorderIcon>
+                    <StarBorderIcon id='5' onClick={starClickHandler} style={star.five}></StarBorderIcon>
                 </div>
             </div>
         </div>
