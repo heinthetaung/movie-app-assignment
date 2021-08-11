@@ -6,6 +6,9 @@ import './Details.css'
 import { useState } from 'react';
 import YouTube from 'react-youtube';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
 
 const Details = () => {
 
@@ -23,6 +26,7 @@ const Details = () => {
     const [rating, setRating] = useState(0)
     const [storyline, setStoryline] = useState('')
     const [videoID, setVideoID] = useState('')
+    const [artists, setArtists] = useState([])
 
     let starStyle = {
         one: { color: 'black', cursor: 'pointer' },
@@ -86,6 +90,7 @@ const Details = () => {
                     setRating(data['rating'])
                     setStoryline(data['storyline'])
                     setVideoID(data['trailer_url'])
+                    setArtists(data['artists'])
                 }
 
             }
@@ -96,7 +101,7 @@ const Details = () => {
     console.log(genres.join(','))
     console.log(videoID.split('=')[1])
 
-    let starClickHandler = (event) => { 
+    let starClickHandler = (event) => {
         console.log(event)
         console.log(event.target)
         console.log(event.target.id)
@@ -154,7 +159,7 @@ const Details = () => {
             </Typography>
             <div className='main-container'>
                 <div className='left'>
-                    <img src={poster} alt='poster' />
+                    <img src={poster} alt='poster' crossOrigin='anonymous' />
                 </div>
                 <div className='center'>
                     <Typography variant="headline" component='h2'>
@@ -180,7 +185,7 @@ const Details = () => {
                     <Typography>
                         <b>Trailer:</b>
                     </Typography>
-                    <YouTube style={{ margin: '300px' }} videoId={videoID.split('=')[1]}></YouTube>
+                    <YouTube style={{ margin: '300px' }} videoId={videoID.split('=')[1]} crossOrigin='anonymous'></YouTube>
                 </div>
                 <div className='right'>
                     <Typography>
@@ -191,6 +196,26 @@ const Details = () => {
                     <StarBorderIcon id='3' onClick={starClickHandler} style={star.three}></StarBorderIcon>
                     <StarBorderIcon id='4' onClick={starClickHandler} style={star.four}></StarBorderIcon>
                     <StarBorderIcon id='5' onClick={starClickHandler} style={star.five}></StarBorderIcon>
+                    <Typography style={{ margin: '16px 0px 16px 0px' }}>
+                        <b>Artists:</b>
+                    </Typography>
+                    <GridList style={{ flexWrap: 'nowrap' }} cellHeight={250} cols={2}>
+                        {artists.map(artist => (
+                            <GridListTile
+                                key={artist['id']}
+                                onClick={() => {
+                                    console.log(artist)
+                                    // window.open(artist['wiki_url'], "_blank")
+                                    window.location = artist['wiki_url']
+                                }}>
+                                <img src={artist['profile_url']} alt='profile_pic' />
+                                <GridListTileBar
+                                    title={artist['first_name'] + ' ' + artist['last_name']}
+                                >
+                                </GridListTileBar>
+                            </GridListTile>
+                        ))}
+                    </GridList>
                 </div>
             </div>
         </div>
