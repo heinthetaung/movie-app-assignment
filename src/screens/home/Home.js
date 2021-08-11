@@ -66,17 +66,18 @@ let Home = (props) => {
     let fetchData = async (baseURL, parameter = '') => {
         const url = baseURL + parameter
         console.log(url)
-        try {
+        // try {
             let rawResponse = await fetch(url, {
-                mode: 'cors',
+                // mode: 'cors',
+                method: 'GET',
                 headers: { "Accept": "application/json;charset=UTF-8" }
             })
             if (rawResponse.ok) {
                 return await rawResponse.json();
             }
-        } catch (e) {
-            console.error(e)
-        }
+        // } catch (e) {
+        //     console.error(e)
+        // }
 
     }
 

@@ -107,11 +107,37 @@ export default function LoginRegister(props) {
         setRequiredContactNumber('displayNone')
     }
 
+    let loginAPI = async () => {
+        const baseURL = 'http://localhost:8085/api/v1/'
+        const loginURL = 'auth/login'
+        console.log(userName, loginPassword)
+        const myHeaders = new Headers();
+        // myHeaders.set()
+        const config = {
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json;charset=UTF-8',
+                'Content-Type': 'application/json',
+                // "Authorization": "Basic " + window.btoa(userName + ":" + loginPassword),
+            },
+            
+            // body: {
+            //     "email": "eve.holt@reqres.in",
+            //     "password": "cityslicka"
+            // },
+        }
+        console.log("Basic " + window.btoa(userName + ":" + loginPassword))
+        // let rawResponse = await fetch(baseURL+loginURL, config)
+        // let rawResponse = await fetch('https://cors-demo.glitch.me/', config)
+        let rawResponse = await fetch('https://cors-demo.glitch.me/allow-cors', config)
+
+        
+    }
+
     let loginButtonHandler = () => {
         userName === '' ? setRequiredUserName('displayBlock') : setRequiredUserName('displayNone')
         loginPassword === '' ? setRequiredLoginPassword('displayBlock') : setRequiredLoginPassword('displayNone')
-        console.log(userName, loginPassword)
-
+        loginAPI()
     }
 
     let registerButtonHandler = () => {
