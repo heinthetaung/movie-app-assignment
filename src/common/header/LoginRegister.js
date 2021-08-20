@@ -108,36 +108,31 @@ export default function LoginRegister(props) {
     }
 
     let loginAPI = async () => {
-        const baseURL = 'http://localhost:8085/api/v1/'
+        const baseURL = '/api/v1/'
         const loginURL = 'auth/login'
-        console.log(userName, loginPassword)
-        const myHeaders = new Headers();
-        // myHeaders.set()
+
         const config = {
-            mode: 'cors',
+            method: 'POST',
             headers: {
-                'Accept': 'application/json;charset=UTF-8',
-                'Content-Type': 'application/json',
-                // "Authorization": "Basic " + window.btoa(userName + ":" + loginPassword),
+                'Accept': 'application/json',
+                'Content-type': 'application/json;charset=UTF-8',
+                "Authorization": "Basic " + window.btoa(userName + ":" + loginPassword),
             },
-            
-            // body: {
-            //     "email": "eve.holt@reqres.in",
-            //     "password": "cityslicka"
-            // },
         }
         console.log("Basic " + window.btoa(userName + ":" + loginPassword))
-        // let rawResponse = await fetch(baseURL+loginURL, config)
-        // let rawResponse = await fetch('https://cors-demo.glitch.me/', config)
-        let rawResponse = await fetch('https://cors-demo.glitch.me/allow-cors', config)
-
-        
+        return await fetch(baseURL + loginURL, config)
     }
 
     let loginButtonHandler = () => {
         userName === '' ? setRequiredUserName('displayBlock') : setRequiredUserName('displayNone')
         loginPassword === '' ? setRequiredLoginPassword('displayBlock') : setRequiredLoginPassword('displayNone')
-        loginAPI()
+        loginAPI().then(response => {
+            if(response.ok) {
+                console.log(response)
+                props.accessTokenHandler(response.headers.get('access-token'))
+                return response.json()
+            }
+        }).then(data => {/*console.log(data)*/})
     }
 
     let registerButtonHandler = () => {
@@ -173,7 +168,7 @@ export default function LoginRegister(props) {
                     <div className='text-input'>
                         <FormControl required={true}>
                             <InputLabel htmlFor="my-input">Username</InputLabel>
-                            <Input id="username-input" aria-describedby="my-helper-text" onChange={inputOnChangeHandler}/>
+                            <Input id="username-input" aria-describedby="my-helper-text" onChange={inputOnChangeHandler} />
                             <FormHelperText id={requiredUserName}>required</FormHelperText>
                         </FormControl>
                     </div>
@@ -181,7 +176,7 @@ export default function LoginRegister(props) {
                     <div className='text-input'>
                         <FormControl required={true}>
                             <InputLabel htmlFor="my-input">Password</InputLabel>
-                            <Input id="loginPassword-input" aria-describedby="my-helper-text" onChange={inputOnChangeHandler}/>
+                            <Input id="loginPassword-input" aria-describedby="my-helper-text" onChange={inputOnChangeHandler} />
                             <FormHelperText id={requiredLoginPassword}>required</FormHelperText>
                         </FormControl>
                     </div>

@@ -9,6 +9,7 @@ let Header = (props) => {
     const [showLoginRegister, setShowLoginRegister] = useState(false)
 
     const [tabValue, setTabValue] = React.useState(0);
+    const [loginStatus, setLoginStatus] = useState(sessionStorage.getItem('access-token') === null ? false : true)
 
 
     const tabChangeHandler = (event, newValue) => {
@@ -23,6 +24,8 @@ let Header = (props) => {
 
     let logoutHandler = () => {
         console.log('logout clicked')
+        sessionStorage.removeItem('access-token')
+        setLoginStatus(false)
     }
 
     let registerHandler = () => {
@@ -36,7 +39,12 @@ let Header = (props) => {
         setShowLoginRegister(false)
     }
 
-    if (props.access === 'logged-in') {
+    let accessTokenHandler = (token) => {
+        sessionStorage.setItem('access-token', token)
+        setLoginStatus(true)
+    }
+
+    if (loginStatus === true) {
         return (
             <div className='header'>
                 <img src={logo} alt='logo' className='movie-icon'></img >
@@ -74,7 +82,8 @@ let Header = (props) => {
                     <LoginRegister open={showLoginRegister}
                         value={tabValue}
                         closeHandler={modalCloseHandler}
-                        tabChangeHandler={tabChangeHandler}></LoginRegister>
+                        tabChangeHandler={tabChangeHandler}
+                        accessTokenHandler={accessTokenHandler}></LoginRegister>
                 </span>
             </div>
         )
