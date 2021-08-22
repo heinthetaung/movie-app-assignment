@@ -26,6 +26,7 @@ let Header = (props) => {
         console.log('logout clicked')
         sessionStorage.removeItem('access-token')
         setLoginStatus(false)
+        setShowLoginRegister(false)
     }
 
     let registerHandler = () => {

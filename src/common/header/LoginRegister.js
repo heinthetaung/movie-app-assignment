@@ -37,6 +37,8 @@ const modalStyle = {
 
 export default function LoginRegister(props) {
 
+    const baseURL = '/api/v1/'
+
     //for login tab
     const [userName, setUserName] = useState('')
     const [loginPassword, setLoginPassword] = useState('')
@@ -108,7 +110,6 @@ export default function LoginRegister(props) {
     }
 
     let loginAPI = async () => {
-        const baseURL = '/api/v1/'
         const loginURL = 'auth/login'
 
         const config = {
@@ -121,6 +122,26 @@ export default function LoginRegister(props) {
         }
         console.log("Basic " + window.btoa(userName + ":" + loginPassword))
         return await fetch(baseURL + loginURL, config)
+    }
+
+    let registerAPI = async () => {
+        const registerURL = 'signup'
+
+        const config = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json;charset=UTF-8',
+            },
+            body: JSON.stringify({
+                "email_address": email,
+                "first_name": firstName,
+                "last_name": lastName,
+                "mobile_number": contactNumber,
+                "password": password
+            })
+        }
+        return await fetch(baseURL + registerURL, config)
     }
 
     let loginButtonHandler = () => {
@@ -142,6 +163,11 @@ export default function LoginRegister(props) {
         password === '' ? setRequiredPassword('displayBlock') : setRequiredPassword('displayNone')
         contactNumber === '' ? setRequiredContactNumber('displayBlock') : setRequiredContactNumber('displayNone')
         console.log(firstName, lastName, email, password, contactNumber)
+        registerAPI().then(response => {
+            if(response.ok) {
+                console.log(response)
+            }
+        })
     }
 
     let tabChangeHandler = (event, newValue) => {

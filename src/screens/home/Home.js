@@ -59,9 +59,9 @@ let Home = (props) => {
 
     const [releasedMoviesParameter, setReleasedMoviesParameter] = useState('?status=RELEASED')
 
-    const movieBaseURL = 'http://localhost:8085/api/v1/movies'
-    const genresBaseURL = 'http://localhost:8085/api/v1/genres'
-    const artistsBaseURL = 'http://localhost:8085/api/v1/artists'
+    const movieBaseURL = '/api/v1/movies'
+    const genresBaseURL = '/api/v1/genres'
+    const artistsBaseURL = '/api/v1/artists'
 
     let fetchData = async (baseURL, parameter = '') => {
         const url = baseURL + parameter
