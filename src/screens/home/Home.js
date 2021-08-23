@@ -45,6 +45,7 @@ const styles = (theme) => ({
 
 let Home = (props) => {
 
+    const {baseUrl} = props
     let history = useHistory();
 
     const [movieTitle, setMovieTitle] = useState('')
@@ -59,12 +60,12 @@ let Home = (props) => {
 
     const [releasedMoviesParameter, setReleasedMoviesParameter] = useState('?status=RELEASED')
 
-    const movieBaseURL = '/api/v1/movies'
-    const genresBaseURL = '/api/v1/genres'
-    const artistsBaseURL = '/api/v1/artists'
+    const movieURL = 'movies'
+    const genresURL = 'genres'
+    const artistsURL = 'artists'
 
-    let fetchData = async (baseURL, parameter = '') => {
-        const url = baseURL + parameter
+    let fetchData = async (url, parameter = '') => {
+        url = url + parameter
         console.log(url)
         // try {
             let rawResponse = await fetch(url, {
@@ -83,18 +84,18 @@ let Home = (props) => {
 
 
     useEffect(() => {
-        fetchData(movieBaseURL, '?status=PUBLISHED').then(
+        fetchData(baseUrl+movieURL, '?status=PUBLISHED').then(
             data => {
                 if (data !== undefined) setUpComingMovies(data['movies'])
             }
         )
-        fetchData(genresBaseURL).then(
+        fetchData(baseUrl+genresURL).then(
             data => {
                 if (data !== undefined) setGenres(data['genres'])
             }
         )
 
-        fetchData(artistsBaseURL).then(
+        fetchData(baseUrl+artistsURL).then(
             data => {
                 if (data !== undefined) setArtists(data['artists'])
             }
@@ -102,7 +103,7 @@ let Home = (props) => {
     }, [])
 
     useEffect(() => {
-        fetchData(movieBaseURL, releasedMoviesParameter).then(
+        fetchData(baseUrl+movieURL, releasedMoviesParameter).then(
             data => {
                 if (data !== undefined) setReleasedMovies(data['movies'])
             }

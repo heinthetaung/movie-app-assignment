@@ -10,7 +10,9 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 
-const Details = () => {
+const Details = (props) => {
+
+    const{baseUrl} = props
 
     let location = useLocation();
     let params = useParams();
@@ -59,8 +61,8 @@ const Details = () => {
         cursor: 'pointer'
     }
 
-    let fetchData = async (baseURL, parameter = '') => {
-        const url = baseURL + parameter
+    let fetchData = async (url, parameter = '') => {
+        url = url + parameter
         console.log(url)
         try {
             let rawResponse = await fetch(url, {
@@ -77,8 +79,7 @@ const Details = () => {
     }
 
     useEffect(() => {
-        let baseURL = 'http://localhost:8085/api/v1/movies/'
-        fetchData(baseURL, params.movie_id).then(
+        fetchData(baseUrl + 'movies/', params.movie_id).then(
             (data) => {
                 if (data !== undefined) {
                     setMovie(data)
