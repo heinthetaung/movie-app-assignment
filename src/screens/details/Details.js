@@ -154,7 +154,7 @@ const Details = (props) => {
 
     return (
         <div>
-            <Header></Header>
+            <Header enableBookShow={true}></Header>
             <Typography style={homeButtonStyle} onClick={history.goBack}>
                 {`< Back to Home`}
             </Typography>

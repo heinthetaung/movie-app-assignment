@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import logo from '../../assets/logo.svg'
 import './Header.css';
 import LoginRegister from './LoginRegister';
@@ -45,6 +45,9 @@ let Header = (props) => {
         setLoginStatus(true)
     }
 
+    let bookShowHandler = () => {
+        console.log('bookshow clicked')
+    }
     if (loginStatus === true) {
         return (
             <div className='header'>
@@ -55,6 +58,15 @@ let Header = (props) => {
                         color='default'
                         onClick={logoutHandler}>
                         Logout
+                    </Button>
+                </span>
+                <span className='button-container'>
+                    <Button
+                        disabled={!props.enableBookShow}
+                        variant="contained"
+                        color='primary'
+                        onClick={bookShowHandler}>
+                        BOOK SHOW
                     </Button>
                 </span>
             </div>
