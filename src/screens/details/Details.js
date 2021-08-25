@@ -9,13 +9,15 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
+import { Link } from "react-router-dom";
 
 const Details = (props) => {
 
-    const{baseUrl} = props
+    const { baseUrl } = props
 
     let location = useLocation();
     let params = useParams();
+
     console.log(location.pathname)
     console.log(params)
 
@@ -152,15 +154,15 @@ const Details = (props) => {
         }
     }
 
-
-    const opts ={host: "https://www.youtube-nocookie.com", sameSite: 'None'}
-
+    const opts = { host: "https://www.youtube-nocookie.com", sameSite: 'None' }
 
     return (
         <div>
-            <Header enableBookShow={true}></Header>
-            <Typography style={homeButtonStyle} onClick={history.goBack}>
-                {`< Back to Home`}
+            <Header enableBookShow={true} movie_id={params.movie_id} ></Header>
+            <Typography style={homeButtonStyle}>
+                <Link to={'/'}>
+                    {`< Back to Home`}
+                </Link>
             </Typography>
             <div className='main-container'>
                 <div className='left'>

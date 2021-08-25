@@ -141,7 +141,7 @@ let Home = (props) => {
 
     const movieClickHandler = (movie_id) => {
         history.push(
-            '/movies/' + movie_id,
+            '/movie/' + movie_id,
         );
     }
 

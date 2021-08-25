@@ -13,15 +13,19 @@ let Controller = () => {
         <div>
             <Router>
                 <Switch>
-                    <Route exact path='/'>
-                        <Home baseUrl={baseUrl} />
+                    <Route exact path='/'
+                        render={(props) =>
+                            <Home {...props} baseUrl={baseUrl} />
+                        }>
                     </Route>
-                    <Route path='/movies/:movie_id'>
-                        <Details baseUrl={baseUrl} />
+                    <Route path='/movie/:movie_id'
+                        render={(props) =>
+                            <Details {...props} baseUrl={baseUrl} />
+                        }>
                     </Route>
                     <Route
                         path='/bookshow/:id'
-                        render={ (props) =>
+                        render={(props) =>
                             <Bookshow {...props} baseUrl={baseUrl} />
                         }
                     >
