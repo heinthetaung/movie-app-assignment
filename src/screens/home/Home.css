@@ -26,20 +26,18 @@
 
 .flex-container {
   display: flex;
-  /* justify-content: space-around; */
-  /* align-items: stretch; */
-  /* margin: 16px; */
-  /* background-color: black; */
-  /* max-width: 1200px; */
 }
+
 .column1 {
   width: 76%;
-  /* background-color: lightslategray; */
   margin: 16px;
 }
 .column2 {
+  padding-top: 16px;
   width: 26%;
-  /* border-left: 1px solid #eee; */
-  background-color: lightcyan;
+  margin: 16px;
+}
+
+.released-movie-tile-grid {
   margin: 16px;
 }

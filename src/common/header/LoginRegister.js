@@ -35,7 +35,7 @@ const modalStyle = {
     },
 };
 
-export default function LoginRegister(props) {
+let LoginRegister = (props) => {
 
     const baseURL = '/api/v1/'
 
@@ -276,3 +276,4 @@ export default function LoginRegister(props) {
         </div>
     )
 }
+export default LoginRegister

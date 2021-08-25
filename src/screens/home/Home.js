@@ -169,7 +169,7 @@ let Home = (props) => {
                     <GridList className={classes.releasedMovieStyle} cellHeight={350} cols={4}>
                         {releasedMovies.map(
                             (mov) => (
-                                <GridListTile onClick={() => movieClickHandler(mov['id'])} key={mov['id']}>
+                                <GridListTile onClick={() => movieClickHandler(mov['id'])} key={mov['id']} className='released-movie-tile-grid'>
                                     <img src={mov['poster_url']}
                                         alt='poster'
                                         crossOrigin='anonymous'
