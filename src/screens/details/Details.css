@@ -4,12 +4,24 @@
 
 .left {
     flex: 20%;
+    text-align: center;
+    margin: 0px 16px 0px 16px;
 }
 
 .center {
     flex: 60%;
+    margin: 0px 16px 0px 16px;
 }
 
 .right {
     flex: 20%;
+    margin: 0px 16px 0px 16px;
+}
+
+.artistGridTile {
+    cursor: pointer;
+}
+
+iframe {
+    width: 100% !important;
 }

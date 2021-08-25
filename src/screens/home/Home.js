@@ -17,6 +17,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from "@material-ui/core/styles";
 import TextField from '@material-ui/core/TextField';
 
+//to be used for material-core withSytles component
 const styles = (theme) => ({
     cardHeading: {
         color: theme.palette.primary.light,
@@ -37,8 +38,6 @@ const styles = (theme) => ({
         minWidth: 240,
         maxWidth: 240,
     },
-
-
 });
 
 let Home = (props) => {
@@ -57,29 +56,25 @@ let Home = (props) => {
 
     const [releasedMoviesParameter, setReleasedMoviesParameter] = useState('?status=RELEASED')
 
+    //API parameters for movie, genres and artists
     const movieURL = 'movies'
     const genresURL = 'genres'
     const artistsURL = 'artists'
 
+    //function for calling GET API 
     let fetchData = async (url, parameter = '') => {
         url = url + parameter
         console.log(url)
-        // try {
             let rawResponse = await fetch(url, {
-                // mode: 'cors',
                 method: 'GET',
                 headers: { "Accept": "application/json;charset=UTF-8" }
             })
             if (rawResponse.ok) {
                 return await rawResponse.json();
             }
-        // } catch (e) {
-        //     console.error(e)
-        // }
-
     }
 
-
+    //will fetch published movies on every refresh
     useEffect(() => {
         fetchData(baseUrl+movieURL, '?status=PUBLISHED').then(
             data => {
@@ -99,6 +94,8 @@ let Home = (props) => {
         )
     }, [])
 
+    //update released movies when there is a change in API parameters
+    //(it will be changed when using the filter)
     useEffect(() => {
         fetchData(baseUrl+movieURL, releasedMoviesParameter).then(
             data => {
@@ -107,22 +104,27 @@ let Home = (props) => {
         )
     }, [releasedMoviesParameter])
 
+    //to show the filter selection
     const genresSelectChangeHandler = (event) => {
         setGenreChecked(event.target.value);
     };
 
+    //to show the filter selection
     const artistsSelectChangeHandler = (event) => {
         setArtistChecked(event.target.value);
     };
 
+    //to show the filter selection
     const releasedDateStartHandler = (event) => {
         setReleasedDateStart(event.target.value);
     };
 
+    //to show the filter selection
     const releasedDateEndHandler = (event) => {
         setReleasedDateEnd(event.target.value);
     };
 
+    //update released movie API parameters
     const applyButtonHandler = () => {
         let param = '?status=RELEASED'
 
@@ -144,7 +146,6 @@ let Home = (props) => {
 
     const { classes } = props;
 
-    console.log(releasedMovies, upComingMovies, genres, artists, releasedDateStart, releasedDateEnd)
     return (
         <div>
             <Header name='Login' access='logged-i'></Header>
@@ -154,7 +155,7 @@ let Home = (props) => {
                     {upComingMovies.map(
                         (mov) => (
                             <GridListTile key={mov['id']}>
-                                <img src={mov['poster_url']} alt='poster' crossOrigin='anonymous' />
+                                <img src={mov['poster_url']} alt='poster' crossOrigin='anonymous' className='upcoming-poster'/>
                                 <GridListTileBar
                                     title={mov['title']}
                                 >

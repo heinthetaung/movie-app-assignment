@@ -41,3 +41,8 @@
 .released-movie-tile-grid {
   margin: 16px;
 }
+
+.upcoming-poster {
+  height: 100%;
+  width: auto;
+}

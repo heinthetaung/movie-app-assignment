@@ -23,6 +23,7 @@ const Details = (props) => {
     const [storyline, setStoryline] = useState('')
     const [videoID, setVideoID] = useState('')
     const [artists, setArtists] = useState([])
+    const [wikiUrl, setWikiUrl] = useState('')
 
     let starStyle = {
         one: { color: 'black', cursor: 'pointer' },
@@ -84,6 +85,7 @@ const Details = (props) => {
                     setStoryline(data['storyline'])
                     setVideoID(data['trailer_url'])
                     setArtists(data['artists'])
+                    setWikiUrl(data['wiki_url'])
                 }
 
             }
@@ -144,7 +146,12 @@ const Details = (props) => {
         }
     }
 
-    const opts = { host: "https://www.youtube-nocookie.com", sameSite: 'None' }
+    const opts = { 
+        host: "https://www.youtube-nocookie.com", sameSite: 'None',
+        playerVars: {
+            autoplay: 1
+        }
+    }
 
     return (
         <div>
@@ -177,12 +184,10 @@ const Details = (props) => {
                     <Typography>
                         <b>Rating:</b> {rating}
                     </Typography>
-                    <br />
-                    <Typography>
-                        <b>Plot:</b> {storyline}
+                    <Typography style={{marginTop: '16px'}}>
+                        <b>Plot:</b> <a href={wikiUrl}>(Wiki Link)</a> {storyline}
                     </Typography>
-                    <br />
-                    <Typography>
+                    <Typography style={{marginTop: '16px'}}>
                         <b>Trailer:</b>
                     </Typography>
                     <YouTube opts={opts} style={{ margin: '300px' }} videoId={videoID.split('=')[1]}></YouTube>
@@ -199,13 +204,13 @@ const Details = (props) => {
                     <Typography style={{ margin: '16px 0px 16px 0px' }}>
                         <b>Artists:</b>
                     </Typography>
-                    <GridList style={{ flexWrap: 'nowrap' }} cellHeight={250} cols={2}>
+                    <GridList cellHeight={160} cols={2}>
                         {artists.map(artist => (
                             <GridListTile
+                                className='artistGridTile'
                                 key={artist['id']}
                                 onClick={() => {
                                     console.log(artist)
-                                    // window.open(artist['wiki_url'], "_blank")
                                     window.location = artist['wiki_url']
                                 }}>
                                 <img src={artist['profile_url']} alt='profile_pic' />
