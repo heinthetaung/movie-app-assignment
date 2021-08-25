@@ -58,6 +58,9 @@ export default function LoginRegister(props) {
     const [requiredPassword, setRequiredPassword] = useState('displayNone')
     const [requiredContactNumber, setRequiredContactNumber] = useState('displayNone')
 
+    const [registerSuccessMessage, setRegisterSuccessMessage] = useState('')
+
+
     function a11yProps(index) {
         return {
             id: `simple-tab-${index}`,
@@ -166,6 +169,7 @@ export default function LoginRegister(props) {
         registerAPI().then(response => {
             if(response.ok) {
                 console.log(response)
+                setRegisterSuccessMessage('Registration Successful. Please Login!')
             }
         })
     }
@@ -254,8 +258,8 @@ export default function LoginRegister(props) {
                         </FormControl>
                     </div>
 
-                    <div id='login-status'>
-                        login successful
+                    <div id='register-status'>
+                        {registerSuccessMessage}
                     </div>
 
                     <div className='button'>
