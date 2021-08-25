@@ -3,11 +3,10 @@ import logo from '../../assets/logo.svg'
 import './Header.css';
 import LoginRegister from './LoginRegister';
 import Button from "@material-ui/core/Button";
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 let Header = (props) => {
 
-    const history = useHistory()
 
     const [showLoginRegister, setShowLoginRegister] = useState(false)
 
@@ -62,9 +61,6 @@ let Header = (props) => {
             if (props.movie_id !== undefined) {
                 console.log('bookshowHandler', props.movie_id)
                 console.log('bookshowHandler', props.match)
-                history.push(
-                    '/bookshow/' + props.movie_id
-                )
             }
         }
     }
@@ -82,15 +78,24 @@ let Header = (props) => {
                     {loginLogoutButtonText}
                 </Button>
             </span>
-            <span className='button-container'>
+            {loginStatus === false && props.enableBookShow ? <span className='button-container'>
                 <Button
-                    disabled={!props.enableBookShow}
                     variant="contained"
                     color='primary'
                     onClick={bookShowHandler}>
                     BOOK SHOW
                 </Button>
-            </span>
+            </span> : ''}
+            {loginStatus === true && props.enableBookShow ? <span className='button-container'>
+                <Link to={'/bookshow/' + props.id}>
+                    <Button
+                        variant="contained"
+                        color='primary'
+                        onClick={bookShowHandler}>
+                        BOOK SHOW
+                    </Button>
+                </Link>
+            </span> : ''}
             <span>
                 <LoginRegister open={showLoginRegister}
                     value={tabValue}
@@ -98,7 +103,7 @@ let Header = (props) => {
                     tabChangeHandler={tabChangeHandler}
                     accessTokenHandler={accessTokenHandler}></LoginRegister>
             </span>
-        </div>
+        </div >
     )
 }
 

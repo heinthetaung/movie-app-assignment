@@ -28,6 +28,7 @@ const styles = (theme) => ({
 });
 
 const Confirmation = (props) => {
+
   const [open, setOpen] = useState(false);
   const [bookingId, setBookingId] = useState("");
   const [couponCode, setCouponCode] = useState("");

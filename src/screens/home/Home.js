@@ -16,8 +16,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from "@material-ui/core/styles";
 import TextField from '@material-ui/core/TextField';
-import { useHistory } from 'react-router-dom';
-
 
 const styles = (theme) => ({
     cardHeading: {
@@ -46,7 +44,6 @@ const styles = (theme) => ({
 let Home = (props) => {
 
     const {baseUrl} = props
-    let history = useHistory();
 
     const [movieTitle, setMovieTitle] = useState('')
     const [releasedMovies, setReleasedMovies] = useState([])
@@ -140,7 +137,7 @@ let Home = (props) => {
     };
 
     const movieClickHandler = (movie_id) => {
-        history.push(
+        props.history.push(
             '/movie/' + movie_id,
         );
     }

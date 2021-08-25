@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import Header from '../../common/header/Header'
-import { useLocation, useParams, useHistory } from 'react-router-dom';
 import Typography from "@material-ui/core/Typography";
 import './Details.css'
 import { useState } from 'react';
@@ -12,14 +11,7 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import { Link } from "react-router-dom";
 
 const Details = (props) => {
-
     const { baseUrl } = props
-
-    let location = useLocation();
-    let params = useParams();
-
-    console.log(location.pathname)
-    console.log(params)
 
     const [movie, setMovie] = useState({})
     const [poster, setPoster] = useState('')
@@ -42,8 +34,6 @@ const Details = (props) => {
 
     const [star, setStar] = useState(starStyle)
 
-    let history = useHistory();
-
     let homeButtonStyle = {
         cursor: 'pointer',
         width: 'max-content',
@@ -65,7 +55,7 @@ const Details = (props) => {
 
     let fetchData = async (url, parameter = '') => {
         url = url + parameter
-        console.log(url)
+        console.log('debugging url', url)
         try {
             let rawResponse = await fetch(url, {
                 mode: 'cors',
@@ -81,7 +71,7 @@ const Details = (props) => {
     }
 
     useEffect(() => {
-        fetchData(baseUrl + 'movies/', params.movie_id).then(
+        fetchData(baseUrl + 'movies/', props.match.params.id).then(
             (data) => {
                 if (data !== undefined) {
                     setMovie(data)
@@ -158,7 +148,10 @@ const Details = (props) => {
 
     return (
         <div>
-            <Header enableBookShow={true} movie_id={params.movie_id} ></Header>
+            <Header 
+            id={props.match.params.id}
+            enableBookShow={true} 
+            ></Header>
             <Typography style={homeButtonStyle}>
                 <Link to={'/'}>
                     {`< Back to Home`}

@@ -10,36 +10,34 @@ let Controller = () => {
     let baseUrl = '/api/v1/'
 
     return (
-        <div>
-            <Router>
-                <Switch>
-                    <Route exact path='/'
-                        render={(props) =>
-                            <Home {...props} baseUrl={baseUrl} />
-                        }>
-                    </Route>
-                    <Route path='/movie/:movie_id'
-                        render={(props) =>
-                            <Details {...props} baseUrl={baseUrl} />
-                        }>
-                    </Route>
-                    <Route
-                        path='/bookshow/:id'
-                        render={(props) =>
-                            <Bookshow {...props} baseUrl={baseUrl} />
-                        }
-                    >
-                    </Route>
-                    <Route
-                        path='/confirmation/:id'
-                        render={(props) =>
-                            <Confirmation {...props} baseUrl={baseUrl} />
-                        }
-                    >
-                    </Route>
-                </Switch>
-            </Router>
-        </div>
+        <Router>
+            <div>
+                <Route exact path='/'
+                    render={(props) =>
+                        <Home {...props} baseUrl={baseUrl} />
+                    }>
+                </Route>
+                <Route path='/movie/:id'
+                    render={(props) =>
+                        <Details {...props} baseUrl={baseUrl} />
+                    }>
+                </Route>
+                <Route
+                    path='/bookshow/:id'
+                    render={(props) =>
+                        <Bookshow {...props} baseUrl={baseUrl} />
+                    }
+                >
+                </Route>
+                <Route
+                    path='/confirm/:id'
+                    render={(props) =>
+                        <Confirmation {...props} baseUrl={baseUrl} />
+                    }
+                >
+                </Route>
+            </div>
+        </Router>
     )
 }
 
