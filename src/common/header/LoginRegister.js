@@ -58,6 +58,9 @@ export default function LoginRegister(props) {
     const [requiredPassword, setRequiredPassword] = useState('displayNone')
     const [requiredContactNumber, setRequiredContactNumber] = useState('displayNone')
 
+    const [registerSuccessMessage, setRegisterSuccessMessage] = useState('')
+
+
     function a11yProps(index) {
         return {
             id: `simple-tab-${index}`,
@@ -148,12 +151,12 @@ export default function LoginRegister(props) {
         userName === '' ? setRequiredUserName('displayBlock') : setRequiredUserName('displayNone')
         loginPassword === '' ? setRequiredLoginPassword('displayBlock') : setRequiredLoginPassword('displayNone')
         loginAPI().then(response => {
-            if(response.ok) {
+            if (response.ok) {
                 console.log(response)
                 props.accessTokenHandler(response.headers.get('access-token'))
                 return response.json()
             }
-        }).then(data => {/*console.log(data)*/})
+        }).then(data => {/*console.log(data)*/ })
     }
 
     let registerButtonHandler = () => {
@@ -163,11 +166,17 @@ export default function LoginRegister(props) {
         password === '' ? setRequiredPassword('displayBlock') : setRequiredPassword('displayNone')
         contactNumber === '' ? setRequiredContactNumber('displayBlock') : setRequiredContactNumber('displayNone')
         console.log(firstName, lastName, email, password, contactNumber)
-        registerAPI().then(response => {
-            if(response.ok) {
-                console.log(response)
-            }
-        })
+        if (firstName !== '' && lastName !== '' &&
+            email !== '' && password !== '' && contactNumber !== '') {
+            registerAPI().then(response => {
+                if (response.ok) {
+                    console.log(response)
+                    setRegisterSuccessMessage('Registration Successful. Please Login!')
+                }
+            })
+        } else {
+            setRegisterSuccessMessage('')
+        }
     }
 
     let tabChangeHandler = (event, newValue) => {
@@ -254,8 +263,8 @@ export default function LoginRegister(props) {
                         </FormControl>
                     </div>
 
-                    <div id='login-status'>
-                        login successful
+                    <div id='register-status'>
+                        {registerSuccessMessage}
                     </div>
 
                     <div className='button'>
