@@ -152,6 +152,10 @@ const Details = (props) => {
         }
     }
 
+
+    const opts ={host: "https://www.youtube-nocookie.com", sameSite: 'None'}
+
+
     return (
         <div>
             <Header enableBookShow={true}></Header>
@@ -186,7 +190,7 @@ const Details = (props) => {
                     <Typography>
                         <b>Trailer:</b>
                     </Typography>
-                    <YouTube style={{ margin: '300px' }} videoId={videoID.split('=')[1]} crossOrigin='anonymous'></YouTube>
+                    <YouTube opts={opts} style={{ margin: '300px' }} videoId={videoID.split('=')[1]}></YouTube>
                 </div>
                 <div className='right'>
                     <Typography>
